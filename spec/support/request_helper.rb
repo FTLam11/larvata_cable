@@ -14,5 +14,5 @@ end
 
 RSpec.configure do |config|
   config.include RequestHelper, type: :request
-  config.include LarvataTimesheet::Engine.routes.url_helpers
+  config.include LarvataCable::Engine.routes.url_helpers
 end
