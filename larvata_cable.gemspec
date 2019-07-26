@@ -28,4 +28,5 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency "pry-rails"
   spec.add_development_dependency "spring"
   spec.add_development_dependency "spring-commands-rspec"
+  spec.add_development_dependency "shoulda-matchers"
 end
