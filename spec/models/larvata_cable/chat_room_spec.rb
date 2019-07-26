@@ -2,6 +2,10 @@ require 'rails_helper'
 
 module LarvataCable
   RSpec.describe ChatRoom, type: :model do
+    describe 'associations' do
+      it { should belong_to(:owner) }
+    end
+
     it 'may have a name' do
       owner = create(:user)
       named_room = build(:chat_room, name: 'TONGZHI', owner: owner)
