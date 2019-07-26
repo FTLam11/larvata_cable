@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20190726041303) do
+ActiveRecord::Schema.define(version: 20190726064700) do
 
   create_table "larvata_cable_chat_rooms", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci" do |t|
     t.string "name"
@@ -30,6 +30,16 @@ ActiveRecord::Schema.define(version: 20190726041303) do
     t.index ["user_id"], name: "index_larvata_cable_chatters_on_user_id"
   end
 
+  create_table "larvata_cable_messages", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci" do |t|
+    t.bigint "sender_id", null: false
+    t.bigint "larvata_cable_chat_room_id"
+    t.text "body"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["larvata_cable_chat_room_id"], name: "index_larvata_cable_messages_on_larvata_cable_chat_room_id"
+    t.index ["sender_id"], name: "index_larvata_cable_messages_on_sender_id"
+  end
+
   create_table "users", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci" do |t|
     t.string "account", null: false
     t.string "auth_token"
@@ -41,4 +51,6 @@ ActiveRecord::Schema.define(version: 20190726041303) do
   add_foreign_key "larvata_cable_chat_rooms", "users", column: "owner_id"
   add_foreign_key "larvata_cable_chatters", "larvata_cable_chat_rooms"
   add_foreign_key "larvata_cable_chatters", "users"
+  add_foreign_key "larvata_cable_messages", "larvata_cable_chat_rooms"
+  add_foreign_key "larvata_cable_messages", "users", column: "sender_id"
 end
