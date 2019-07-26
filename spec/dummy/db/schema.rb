@@ -10,7 +10,15 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20190725085537) do
+ActiveRecord::Schema.define(version: 20190726030644) do
+
+  create_table "larvata_cable_chat_rooms", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci" do |t|
+    t.string "name"
+    t.bigint "owner_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["owner_id"], name: "index_larvata_cable_chat_rooms_on_owner_id"
+  end
 
   create_table "users", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci" do |t|
     t.string "account", null: false
@@ -20,4 +28,5 @@ ActiveRecord::Schema.define(version: 20190725085537) do
     t.index ["account"], name: "index_users_on_account", unique: true
   end
 
+  add_foreign_key "larvata_cable_chat_rooms", "users", column: "owner_id"
 end
