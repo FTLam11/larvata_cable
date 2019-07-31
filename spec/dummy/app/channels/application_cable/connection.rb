@@ -20,7 +20,7 @@ module ApplicationCable
     end
 
     def decoded_token
-      @token ||= JWT.decode(request_header_token, Rails.application.secrets[:secret_key_base], true, { algorithm: 'HS256' }).first
+      @token ||= LarvataCable::JWTWrapper.decode(request_header_token)
     rescue JWT::DecodeError => e
       logger.add_tags 'Invalid auth token', "#{e.message}: #{request_header_token.inspect}"
       false
