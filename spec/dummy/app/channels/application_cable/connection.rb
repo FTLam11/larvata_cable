@@ -12,7 +12,9 @@ module ApplicationCable
     private
 
     def find_verified_user
-      if decoded_token
+      if env['warden']&.user
+        env['warden'].user
+      elsif decoded_token
         LarvataCable.user_class.find(decoded_token['user_id'])
       else
         reject_unauthorized_connection
