@@ -4,7 +4,9 @@ module LarvataCable
 
     SIGNING_KEY = Rails.application.secrets[:jwt_signing_key]
 
-    raise 'Please set jwt_signing_key in config/secrets.yml' unless SIGNING_KEY.present?
+    unless SIGNING_KEY.present?
+      raise 'Please set jwt_signing_key in config/secrets.yml. It is required for signing JWT. Refer to https://jwt.io/introduction.'
+    end
 
     def encode(payload)
       JWT.encode(payload, SIGNING_KEY, 'HS256')
