@@ -6,6 +6,7 @@ module LarvataCable
       it { should belong_to(:owner) }
       it { should have_many(:chatters).with_foreign_key('larvata_cable_chat_room_id') }
       it { should have_many(:members).through(:chatters).source(LarvataCable.user_class.to_s.downcase) }
+      it { should have_many(:messages).order(:created_at).with_foreign_key('larvata_cable_chat_room_id') }
     end
 
     it 'may have a name' do
