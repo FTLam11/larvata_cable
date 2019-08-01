@@ -12,8 +12,8 @@ module ApplicationCable
     private
 
     def find_verified_user
-      if env['warden']&.user
-        env['warden'].user
+      if verified_user = env['warden']&.user
+        verified_user
       elsif decoded_token
         LarvataCable.user_class.find(decoded_token['user_id'])
       else
@@ -24,7 +24,7 @@ module ApplicationCable
     def decoded_token
       @token ||= LarvataCable::JWTWrapper.decode(request_header_token)
     rescue JWT::DecodeError => e
-      logger.add_tags 'Invalid auth token', "#{e.message}: #{request_header_token.inspect}"
+      logger.add_tags 'JWT Decode Error', "#{e.message}: #{request_header_token.inspect}"
       false
     end
 
