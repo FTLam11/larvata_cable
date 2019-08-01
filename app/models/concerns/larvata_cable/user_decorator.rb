@@ -3,6 +3,9 @@ module LarvataCable
     extend ActiveSupport::Concern
 
     included do
+      has_many :chatters, class_name: 'LarvataCable::Chatter'
+      has_many :chat_rooms, through: :chatters, class_name: 'LarvataCable::ChatRoom', foreign_key: 'larvata_cable_chat_room_id'
+
       after_create :generate_token
 
       private
