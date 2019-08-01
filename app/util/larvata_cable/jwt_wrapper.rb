@@ -1,3 +1,5 @@
+require 'jwt'
+
 module LarvataCable
   module JWTWrapper
     extend self
