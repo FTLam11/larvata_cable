@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20190726064700) do
+ActiveRecord::Schema.define(version: 20190801092923) do
 
   create_table "larvata_cable_chat_rooms", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci" do |t|
     t.string "name"
@@ -26,8 +26,8 @@ ActiveRecord::Schema.define(version: 20190726064700) do
     t.datetime "last_read_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["larvata_cable_chat_room_id"], name: "index_larvata_cable_chatters_on_larvata_cable_chat_room_id"
-    t.index ["user_id"], name: "index_larvata_cable_chatters_on_user_id"
+    t.index ["larvata_cable_chat_room_id"], name: "fk_rails_fd3e4c49db"
+    t.index ["user_id", "larvata_cable_chat_room_id"], name: "index_larvata_cable_chatters_on_user_id_and_chat_room_id", unique: true
   end
 
   create_table "larvata_cable_messages", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci" do |t|
