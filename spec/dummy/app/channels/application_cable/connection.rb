@@ -1,35 +1,18 @@
 module ApplicationCable
   class Connection < ActionCable::Connection::Base
+    include LarvataCable::UserFindable
+
     identified_by :current_user
 
     def connect
-      self.current_user = find_verified_user
+      self.current_user = set_user
       logger.add_tags 'Action Cable', "User #{current_user.id}"
     end
 
     private
 
-    def find_verified_user
-      if verified_user = env['warden']&.user
-        verified_user
-      elsif decoded_token
-        LarvataCable.user_class.find(decoded_token['user_id'])
-      else
-        reject_unauthorized_connection
-      end
-    end
-
-    def decoded_token
-      @token ||= LarvataCable::JWTWrapper.decode(request_header_token)
-    rescue JWT::DecodeError => e
-      logger.add_tags 'JWT Decode Error', "#{e.message}: #{request_header_token.inspect}"
-      false
-    end
-
-    def request_header_token
-      @raw_token = if env['HTTP_AUTHORIZATION']&.match(/Bearer /)
-        env['HTTP_AUTHORIZATION'].split[1]
-      end
+    def set_user
+      find_verified_user || reject_unauthorized_connection
     end
   end
 end
