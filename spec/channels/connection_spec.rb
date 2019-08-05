@@ -1,4 +1,4 @@
-require "rails_helper"
+require 'rails_helper'
 
 RSpec.describe ApplicationCable::Connection, type: :channel do
   context 'with a valid authorization header' do
