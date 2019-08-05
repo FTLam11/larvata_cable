@@ -8,10 +8,9 @@ module LarvataCable
 
       after_create :generate_token
 
-      private
-
       def generate_token
-        update(LarvataCable.auth_token_column => LarvataCable::JWTWrapper.encode({ user_id: id }))
+        update(LarvataCable.auth_token_column => LarvataCable::JWTWrapper.encode(
+          { user_id: id, updated_at: Time.zone.now }))
       end
     end
 
