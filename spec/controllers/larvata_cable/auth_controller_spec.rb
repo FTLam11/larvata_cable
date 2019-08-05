@@ -20,13 +20,14 @@ module LarvataCable
 
     describe 'DELETE #destroy' do
       xit 'revokes the JWT' do
-        task = create(:task)
+        user = create(:user, account: 'Falcon')
+        headers = { Authorization: "Bearer #{user.auth_token}" }
 
-        delete task_path(task), as: :json
+        delete logout_path, headers: headers
 
-        expect { task.reload }.to(raise_error(ActiveRecord::RecordNotFound))
-        expect(response).to(have_http_status(200))
-        expect(body_content['action']).to(eq('deleted'))
+        expect(response).to(have_http_status(204))
+        # TODO add expectation about invalid auth_token
+        # need to implement token expiration
       end
     end
   end
