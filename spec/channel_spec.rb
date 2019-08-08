@@ -33,7 +33,7 @@ RSpec.describe ChatRoomChannel, type: :channel do
 
       unsubscribe
 
-      expect(subscription).to_not have_stream_for(chat_room)
+      expect(subscription).to_not have_streams
     end
   end
 end
