@@ -1,5 +1,10 @@
 class ChatRoomChannel < ApplicationCable::Channel
   def subscribed
+    # TODO what is chat room creation/joining strategy?
+    # Create seperate channels for different websocket use cases
+    # Stream all rooms of a given channel upon upgrading websocket connection?
+    # AppearanceChannel
+    # AnnouncementChannel
     if @chat_room = find_chat_room
       stream_for @chat_room
     else
