@@ -26,10 +26,14 @@ RSpec.describe ChatRoomChannel, type: :channel do
   end
 
   describe '#unsubscribed' do
-    context 'with no chat room id' do
-      xit 'ignores the request' do
+    it "unsubscribes from all the channel's streams" do
+      chat_room = instance_double(LarvataCable::ChatRoom, id: 322)
+      stub_connection find_chat_room: chat_room
+      subscribe(room_id: 322)
 
-      end
+      unsubscribe
+
+      expect(subscription).to_not have_stream_for(chat_room)
     end
   end
 end
