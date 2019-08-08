@@ -17,9 +17,9 @@ class ChatRoomChannel < ApplicationCable::Channel
   end
 
   def chat(data)
-    # TODO use identifier instead of model to avoid DB query
-    self.class.broadcast_to(LarvataCable::ChatRoom.find(data['chat_room_id']),
-                            text: data['body'])
+    # TODO what if this channel has many rooms
+    message = @chat_room.messages.create(sender: current_user, body: data['body'])
+    LarvataCable::CastMessageJob.perform_later(message)
   end
 
   private

@@ -1,6 +1,8 @@
 require 'rails_helper'
 
 RSpec.describe ChatRoomChannel, type: :channel do
+  include ActiveJob::TestHelper
+
   describe '#subscribed' do
     context 'with no chat room id' do
       it 'rejects the subscription' do
@@ -47,7 +49,8 @@ RSpec.describe ChatRoomChannel, type: :channel do
       data = { body: 'FALCON PAWNCH', chat_room_id: chat_room.id }
       subscribe(chat_room_id: chat_room.id)
 
-      expect { perform(:chat, data) }.to have_broadcasted_to(chat_room).from_channel(ChatRoomChannel).with(text: data[:body])
+      expect { perform_enqueued_jobs { perform(:chat, data) } }.to have_broadcasted_to("chat_room_#{chat_room.id}")
+        .from_channel(ChatRoomChannel).with(data.merge(sender: falcon.account))
     end
   end
 end
