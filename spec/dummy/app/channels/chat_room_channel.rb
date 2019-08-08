@@ -11,6 +11,12 @@ class ChatRoomChannel < ApplicationCable::Channel
     stop_all_streams
   end
 
+  def chat(data)
+    # TODO use identifier instead of model to avoid DB query
+    self.class.broadcast_to(LarvataCable::ChatRoom.find(data['chat_room_id']),
+                            text: data['body'])
+  end
+
   private
 
   def find_chat_room

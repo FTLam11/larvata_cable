@@ -17,7 +17,7 @@ RSpec.describe ChatRoomChannel, type: :channel do
         chat_room = instance_double(LarvataCable::ChatRoom, id: 322)
         stub_connection find_chat_room: chat_room
 
-        subscribe(room_id: 322)
+        subscribe(chat_room_id: 322)
 
         expect(subscription).to be_confirmed
         expect(subscription).to have_stream_for(chat_room)
@@ -29,11 +29,25 @@ RSpec.describe ChatRoomChannel, type: :channel do
     it "unsubscribes from all the channel's streams" do
       chat_room = instance_double(LarvataCable::ChatRoom, id: 322)
       stub_connection find_chat_room: chat_room
-      subscribe(room_id: 322)
 
+      subscribe(chat_room_id: 322)
       unsubscribe
 
       expect(subscription).to_not have_streams
+    end
+  end
+
+  describe '#chat' do
+    it 'broadcasts a message to a stream' do
+      falcon = create(:user, account: 'falcon')
+      chat_room = create(:chat_room, owner: falcon, name: 'MELEE')
+      chat_room.members << falcon
+      stub_connection current_user: falcon
+
+      data = { body: 'FALCON PAWNCH', chat_room_id: chat_room.id }
+      subscribe(chat_room_id: chat_room.id)
+
+      expect { perform(:chat, data) }.to have_broadcasted_to(chat_room).from_channel(ChatRoomChannel).with(text: data[:body])
     end
   end
 end
