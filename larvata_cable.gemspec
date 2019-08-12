@@ -18,6 +18,7 @@ Gem::Specification.new do |spec|
 
   spec.add_dependency "rails", "~> 5.1.4"
   spec.add_dependency "jwt"
+  spec.add_dependency "sidekiq"
 
   spec.add_development_dependency "mysql2"
   spec.add_development_dependency "rspec-rails"
