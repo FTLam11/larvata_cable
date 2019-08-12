@@ -1,4 +1,5 @@
 require 'factory_bot_rails' if Rails.env.test?
+require 'sidekiq'
 
 module LarvataCable
   class Engine < ::Rails::Engine
