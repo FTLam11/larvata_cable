@@ -12,6 +12,7 @@ require 'awesome_print'
 require 'pry'
 require 'pry-byebug'
 require 'pry-rails'
+require 'sidekiq/testing'
 Dir['./spec/support/**/*.rb'].each {|f| require f}
 Rails::Controller::Testing.install
 # Add additional requires below this line. Rails is not loaded until this point!
