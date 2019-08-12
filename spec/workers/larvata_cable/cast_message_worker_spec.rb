@@ -2,8 +2,6 @@ require 'rails_helper'
 
 module LarvataCable
   RSpec.describe CastMessageWorker, type: :worker do
-    ActiveJob::Base.queue_adapter = :test
-
     it 'enqueues a job with appropriate arguments' do
       falcon = create(:user)
       chat_room = create(:chat_room, owner: falcon)
