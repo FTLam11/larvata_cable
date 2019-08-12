@@ -49,8 +49,10 @@ RSpec.describe ChatRoomChannel, type: :channel do
       data = { body: 'FALCON PAWNCH', chat_room_id: chat_room.id }
       subscribe(chat_room_id: chat_room.id)
 
-      expect { perform_enqueued_jobs { perform(:chat, data) } }.to have_broadcasted_to("chat_room_#{chat_room.id}")
-        .from_channel(ChatRoomChannel).with(data.merge(sender: falcon.account))
+      Sidekiq::Testing.inline! do
+        expect { perform_enqueued_jobs { perform(:chat, data) } }.to have_broadcasted_to("chat_room_#{chat_room.id}")
+          .from_channel(ChatRoomChannel).with(data.merge(sender: falcon.account))
+      end
     end
   end
 end

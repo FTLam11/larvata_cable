@@ -19,7 +19,7 @@ class ChatRoomChannel < ApplicationCable::Channel
   def chat(data)
     # TODO what if this channel has many rooms
     message = @chat_room.messages.create(sender: current_user, body: data['body'])
-    LarvataCable::CastMessageJob.perform_later(message)
+    LarvataCable::CastMessageWorker.perform_async(message.id)
   end
 
   private
