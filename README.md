@@ -54,15 +54,14 @@ Content-Type: application/json
 User-Agent: PostmanRuntime/7.15.2
 Accept: */*
 Cache-Control: no-cache
-Postman-Token:
-8f38456a-4047-4ec9-ad0f-467fbdd1a0bd,593b43b9-a358-4e84-a664-94dea3a302d1
+Postman-Token: 8f38456a-4047-4ec9-ad0f-467fbdd1a0bd,593b43b9-a358-4e84-a664-94dea3a302d1
 Host: localhost:3000
 Accept-Encoding: gzip, deflate
 Content-Length: 22
 cache-control: no-cache
 
 {
-"chat_room_id"chat_room_id: 1
+  "chat_room_id": 1
 }
 ```
 
