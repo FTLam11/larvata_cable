@@ -4,8 +4,8 @@ module LarvataCable
 
     included do
       def find_verified_user(&block)
-        if @user = request.env['warden']&.user || (block.call if block_given?)
-          @user
+        if user = request.env['warden']&.user || (block.call if block_given?)
+          user
         elsif decoded_token
           LarvataCable.user_class.find(decoded_token['user_id'])
         else
