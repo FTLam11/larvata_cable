@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20190801092923) do
+ActiveRecord::Schema.define(version: 20190814031129) do
 
   create_table "larvata_cable_chat_rooms", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci" do |t|
     t.string "name"
@@ -41,10 +41,11 @@ ActiveRecord::Schema.define(version: 20190801092923) do
   end
 
   create_table "users", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci" do |t|
-    t.string "account", null: false
+    t.string "account", default: "", null: false
     t.string "auth_token"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "encrypted_password", default: "", null: false
     t.index ["account"], name: "index_users_on_account", unique: true
   end
 
