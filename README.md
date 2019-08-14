@@ -65,5 +65,11 @@ cache-control: no-cache
 }
 ```
 
+## Authentication Strategies
+
+1) Check is user has been authenticated through Warden
+2) Via `account` and `password` if given
+3) Via Authorization header
+
 ## License
 The gem is available as open source under the terms of the [MIT License](https://opensource.org/licenses/MIT).
