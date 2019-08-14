@@ -15,15 +15,17 @@ module LarvataCable
     end
 
     def destroy
+      # TODO token revocation
     end
 
     private
 
     def set_user
-      if @user = find_verified_user do
-        LarvataCable.user_class.send("find_by_#{LarvataCable.user_account_column.to_s}",
-                                     params[LarvataCable.user_account_column])
-      end
+      if @user = find_verified_user {
+        user = LarvataCable.user_class.send("find_by_#{LarvataCable.user_account_column.to_s}",
+                                            params[LarvataCable.user_account_column])
+        user if user&.valid_password?(params[:password])
+      }
         @user
       else
         render json: {}, status: 400 and return
