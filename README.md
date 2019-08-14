@@ -130,5 +130,10 @@ not receive messages from it.
 2) Via `account` and `password` if given
 3) Via Authorization header
 
+## Configuration
+
+The host application is responsible for [configuring
+ActionCable](https://guides.rubyonrails.org/action_cable_overview.html#configuration).
+
 ## License
 The gem is available as open source under the terms of the [MIT License](https://opensource.org/licenses/MIT).
