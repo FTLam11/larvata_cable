@@ -59,11 +59,70 @@ Host: localhost:3000
 Accept-Encoding: gzip, deflate
 Content-Length: 22
 cache-control: no-cache
+```
 
+## Subscribing to a channel
+
+Once the websocket connection is established, the client can subscribe
+to a channel by sending a json message in the following format:
+
+```javascript
 {
-  "chat_room_id": 1
+  command: "subscribe",
+  identifier: {
+    channel: "ChatRoomChannel"
+  }
 }
 ```
+
+The client will automatically stream messages from the subscribed
+channel.
+
+## Sending messages
+
+Once a channel subscription is created, the client can send messages to
+the channel. The example below shows the general message format. The
+`command` and `identifier` keys are static, these are the default keys
+used by ActionCable.
+
+The `action` key in `data` must match a method implemented on the server
+side's `ChatRoomChannel` channel. Depending on how the server channel is
+implemented, there may be a need for another identifier to commmunicate
+which chat room to send the message to. The example below assumes
+`ChatRoomChannel` has many chat rooms. Finally `body` contains the
+message content and can be changed to another key agreed upon by the
+server and client.
+
+```javascript
+{
+  command: "message",
+  identifier: {
+    channel: "ChatRoomChannel"
+  },
+  data: {
+    action: "send_message",
+    chat_room_id: 322,
+    body: "Yo what up homie"
+  }
+}
+```
+
+## Unsubscribing from a channel
+
+If the client wishes to disconnect from a channel, a message in the
+following format should be sent to the server:
+
+```javascript
+{
+  command: "unsubscribe",
+  identifier: {
+    channel: "ChatRoomChannel"
+  }
+}
+```
+
+The client in this case unsubscribes from the `ChatRoomChannel` and will
+not receive messages from it.
 
 ## Authentication Strategies
 
