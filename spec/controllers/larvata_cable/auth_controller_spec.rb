@@ -5,16 +5,28 @@ module LarvataCable
     let(:expires_in) { 60 * 60 }
 
     describe 'POST #create' do
-      it 'responds with a signed JWT' do
-        user = create(:user, account: 'Falcon')
-        params = { account: 'Falcon', password: '12345678' }
+      context 'with valid credentials' do
+        it 'responds with a signed JWT' do
+          user = create(:user, account: 'Falcon')
+          params = { account: 'Falcon', password: '12345678' }
 
-        post login_path, params: params, as: :json
+          post login_path, params: params, as: :json
 
-        expect(response).to have_http_status(200)
-        expect(body_content).to eq('access_token' => user.auth_token,
-                                   'token_type' => 'bearer',
-                                   'expires_in' => expires_in)
+          expect(response).to have_http_status(200)
+          expect(body_content).to eq('access_token' => user.auth_token,
+                                     'token_type' => 'bearer',
+                                     'expires_in' => expires_in)
+        end
+      end
+
+      context 'with invalid credentials' do
+        it 'responds with a 400' do
+          params = { account: 'Falcon', password: 'ASDFSASDJL' }
+
+          post login_path, params: params, as: :json
+
+          expect(response).to have_http_status(400)
+        end
       end
     end
 
