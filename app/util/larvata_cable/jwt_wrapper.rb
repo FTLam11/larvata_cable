@@ -15,7 +15,9 @@ module LarvataCable
     end
 
     def decode(token)
-      JWT.decode(token, SIGNING_KEY, true, { algorithm: 'HS256' }).first
+      JWT.decode(token, SIGNING_KEY, true, {
+        exp_leeway: LarvataCable.leeway_claim, algorithm: 'HS256'
+      }).first
     end
   end
 end
