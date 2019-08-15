@@ -13,6 +13,8 @@ module LarvataCable
         end
       end
 
+      private
+
       def decoded_token
         @token ||= LarvataCable::JWTWrapper.decode(request_header_token)
       rescue JWT::DecodeError => e
