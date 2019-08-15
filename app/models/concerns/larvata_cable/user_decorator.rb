@@ -12,7 +12,7 @@ module LarvataCable
         expires_at = Time.zone.now.to_i + LarvataCable.exp_claim_time
 
         update(LarvataCable.auth_token_column => LarvataCable::JWTWrapper.encode(
-          { user_id: id, updated_at: Time.zone.now, exp: expires_at }))
+          { sub: id, updated_at: Time.zone.now, exp: expires_at }))
       end
     end
 

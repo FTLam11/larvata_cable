@@ -31,7 +31,7 @@ module LarvataCable
     end
 
     describe 'DELETE #destroy' do
-      xit 'revokes the JWT' do
+      it 'revokes the JWT' do
         user = create(:user, account: 'Falcon')
         headers = { Authorization: "Bearer #{user.auth_token}" }
 

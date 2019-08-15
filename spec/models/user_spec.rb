@@ -14,7 +14,7 @@ RSpec.describe User, type: :model do
 
     payload = LarvataCable::JWTWrapper.decode(user.auth_token)
 
-    expect(payload['user_id']).to eq user.id
+    expect(payload['sub']).to eq user.id
   end
 
   describe 'associations' do
