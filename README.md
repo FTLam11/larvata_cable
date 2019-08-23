@@ -135,5 +135,53 @@ not receive messages from it.
 The host application is responsible for [configuring
 ActionCable](https://guides.rubyonrails.org/action_cable_overview.html#configuration).
 
+## Workflow
+
+### Authentication
+
+1. Client authenticates with host application using credentials.
+2. With valid user credentials, host application responds with session
+   cookie.
+3. Client accesses a chat resource on host application.
+4. Host application uses LarvataCable public key to encrypt a JSON
+   token string payload containing:
+
+```javascript
+{
+  iss: APPLICATION ID,
+  sub: USER ID,
+  data: {
+    name: USER NAME
+  }
+}
+```
+
+5. Host application attaches authorization token in POST request to
+   LarvataCable server.
+6. LarvataCable decrypts token using private key, verifies application
+   ID, and responds with authorization JWT with the following format:
+
+```javascript
+// HEADER
+{
+  alg: "HS256",
+  typ: "JWT"
+}
+
+// PAYLOAD
+{
+  sub: USER ID,
+  exp: EXPIRATION TIME
+}
+
+// SIGNATURE
+```
+
+7. Client attaches authorization JWT to `Authorization` header of GET
+   request to LarvataCable ActionCable endpoint.
+8. LarvataCable server verifies Authorization JWT and upgrades HTTP
+   connection to Websocket connection.
+9. Client and LarvataCable use ActionCable API to send/receive messages.
+
 ## License
 The gem is available as open source under the terms of the [MIT License](https://opensource.org/licenses/MIT).
