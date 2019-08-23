@@ -137,8 +137,6 @@ ActionCable](https://guides.rubyonrails.org/action_cable_overview.html#configura
 
 ## Workflow
 
-### Authentication
-
 1. Client authenticates with host application using credentials.
 2. With valid user credentials, host application responds with session
    cookie.
