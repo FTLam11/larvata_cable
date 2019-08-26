@@ -154,8 +154,8 @@ ActionCable](https://guides.rubyonrails.org/action_cable_overview.html#configura
 }
 ```
 
-5. Host application attaches authorization token in POST request to
-   LarvataCable server.
+5. Host application sends POST request with authorization token in
+   body payload to LarvataCable server (/cable).
 6. LarvataCable decrypts token using private key, verifies application
    ID, and responds with authorization JWT with the following format:
 
