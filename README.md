@@ -126,7 +126,7 @@ not receive messages from it.
 
 ## Authentication Strategies
 
-1) Check is user has been authenticated through Warden
+1) Check if user has been authenticated through Warden
 2) Via `account` and `password` if given
 3) Via Authorization header
 
@@ -135,7 +135,7 @@ not receive messages from it.
 The host application is responsible for [configuring
 ActionCable](https://guides.rubyonrails.org/action_cable_overview.html#configuration).
 
-## Workflow
+## Chat Workflow
 
 1. Client authenticates with host application using credentials.
 2. With valid user credentials, host application responds with session
@@ -180,6 +180,28 @@ ActionCable](https://guides.rubyonrails.org/action_cable_overview.html#configura
 8. LarvataCable server verifies Authorization JWT and upgrades HTTP
    connection to Websocket connection.
 9. Client and LarvataCable use ActionCable API to send/receive messages.
+
+## Potential API Workflows
+
+1. Not possible to use session cookie because of different origin (for
+   web clients). Mobile clients should be OK?
+2. Use an opaque token: Might not be too bad since will have to query
+   for a given user's chats and messages. What is the significance of
+   device ID? Using the chat workflow, a permanent opaque token can be
+   granted instead of a JWT.
+3. JWT: Eww blacklisting and refresh tokens
+4. Host application server proxies API calls to LarvataCable, sends
+   application ID and params. (WINNER)
+
+* API/websocket authorization is via server proxying
+* Publish/subscribe is client direct to LarvataCable server
+
+## Use cases
+
+1. Chat rooms/direct messaging
+2. Broadcasting updates
+3. Live comments section
+4. Online/offline user status
 
 ## License
 The gem is available as open source under the terms of the [MIT License](https://opensource.org/licenses/MIT).
