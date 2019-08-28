@@ -5,6 +5,7 @@ module RakeTaskHelper
 
   included do
     subject(:task) { Rake::Task[self.class.top_level_description.sub(/\Arake /, '')] }
+    let(:task_args) { TaskArgs = Struct.new(*task.arg_names) }
   end
 end
 
