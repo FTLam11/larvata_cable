@@ -1,6 +1,6 @@
 FactoryBot.define do
-  factory :larvata_cable_tenant, class: 'Tenant' do
-    application_id { "123456789" }
+  factory :larvata_cable_tenant, class: 'LarvataCable::Tenant', aliases: [:tenant] do
+    application_id { nil }
     name { "Tenant" }
   end
 end
