@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20190814031129) do
+ActiveRecord::Schema.define(version: 20190827100047) do
 
   create_table "larvata_cable_chat_rooms", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci" do |t|
     t.string "name"
@@ -38,6 +38,14 @@ ActiveRecord::Schema.define(version: 20190814031129) do
     t.datetime "updated_at", null: false
     t.index ["larvata_cable_chat_room_id"], name: "index_larvata_cable_messages_on_larvata_cable_chat_room_id"
     t.index ["sender_id"], name: "index_larvata_cable_messages_on_sender_id"
+  end
+
+  create_table "larvata_cable_tenants", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci" do |t|
+    t.string "application_id", null: false
+    t.string "name", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["application_id"], name: "index_larvata_cable_tenants_on_application_id"
   end
 
   create_table "users", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci" do |t|
