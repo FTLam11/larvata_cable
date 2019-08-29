@@ -2,7 +2,7 @@ require "larvata_cable/engine"
 
 module LarvataCable
   mattr_accessor :owner_class, :user_class, :user_account_column, :auth_token_column,
-    :exp_claim_time, :leeway_claim
+    :exp_claim_time, :leeway_claim, :private_key, :public_key, :auth_box
 
   def self.owner_class
     @@owner_class.constantize
