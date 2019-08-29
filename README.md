@@ -213,10 +213,15 @@ Given database constraints and ActiveRecord associations cannot be
 compromised and a need to satisfy potentially vastly different modeling
 needs, a potential solution is to only persist:
 
-1. user_id: Host application user ID
-2. application_id: Host application application ID
-3. data: JSON type column containing arbitrary data sourced from host
+1. `user_id`: Host application user ID
+2. `application_id`: Host application application ID
+3. `data`: JSON type column containing arbitrary data sourced from host
    application
+
+Must assume that LarvataCable does nothing with the host application
+supplied `data`. The reasoning is this data cannot be relied upon to be
+the source of truth, since the data originates from the host
+application. Jury is still out for this field.
 
 ## License
 The gem is available as open source under the terms of the [MIT License](https://opensource.org/licenses/MIT).
