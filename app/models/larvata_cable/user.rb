@@ -5,13 +5,5 @@ module LarvataCable
     has_many :chat_rooms, through: :chatters, class_name: 'LarvataCable::ChatRoom', foreign_key: 'larvata_cable_chat_room_id'
 
     validates_presence_of :host_user_id
-
-    def generate_token
-      expires_at = Time.zone.now.to_i + LarvataCable.exp_claim_time
-
-      LarvataCable::JWTWrapper.encode(
-        { sub: host_user_id, updated_at: Time.zone.now, exp: expires_at }
-      )
-    end
   end
 end
