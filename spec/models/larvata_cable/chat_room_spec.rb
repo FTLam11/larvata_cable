@@ -4,6 +4,7 @@ module LarvataCable
   RSpec.describe ChatRoom, type: :model do
     describe 'associations' do
       it { should belong_to(:owner) }
+      it { should belong_to(:tenant) }
       it { should have_many(:chatters).with_foreign_key('larvata_cable_chat_room_id') }
       it { should have_many(:members).through(:chatters).source('user') }
       it { should have_many(:messages).order(:created_at).with_foreign_key('larvata_cable_chat_room_id') }
