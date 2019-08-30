@@ -7,7 +7,7 @@ module LarvataCable
       chat_room_id = message.larvata_cable_chat_room_id
 
       ActionCable.server.broadcast("chat_room_#{chat_room_id}", {
-        sender: message.sender.send(LarvataCable.user_account_column),
+        sender: message.sender.host_user_id,
         body: message.body,
         chat_room_id: chat_room_id
       })

@@ -8,8 +8,7 @@ module LarvataCable
     end
 
     describe 'validations' do
-      let(:chat_room) { create(:chat_room) }
-      subject { create(:chatter, user: chat_room.owner, chat_room: chat_room) }
+      subject { create(:chatter) }
 
       it do
         should validate_uniqueness_of(:larvata_cable_user_id)

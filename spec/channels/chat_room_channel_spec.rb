@@ -41,9 +41,8 @@ RSpec.describe ChatRoomChannel, type: :channel do
 
   describe '#chat' do
     it 'broadcasts a message to a stream' do
-      falcon = create(:user, account: 'falcon')
-      chat_room = create(:chat_room, owner: falcon, name: 'MELEE')
-      chat_room.members << falcon
+      chat_room = create(:chat_room, name: 'MELEE')
+      falcon = chat_room.members.first
       stub_connection current_user: falcon
 
       data = { body: 'FALCON PAWNCH', chat_room_id: chat_room.id }
@@ -51,7 +50,7 @@ RSpec.describe ChatRoomChannel, type: :channel do
 
       Sidekiq::Testing.inline! do
         expect { perform_enqueued_jobs { perform(:chat, data) } }.to have_broadcasted_to("chat_room_#{chat_room.id}")
-          .from_channel(ChatRoomChannel).with(data.merge(sender: falcon.account))
+          .from_channel(ChatRoomChannel).with(data.merge(sender: falcon.host_user_id))
       end
     end
   end
