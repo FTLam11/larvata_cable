@@ -1,8 +1,9 @@
 puts "Seed start"
 
-falcon = User.find_or_create_by(account: 'Falcon', password: '12345678')
-melee = falcon.chat_rooms.create(name: 'Melee', owner: falcon)
-falco = User.find_or_create_by(account: 'Falco', password: '12345678')
+tenant = LarvataCable::Tenant.create(name: 'LarvataApp')
+falcon = LarvataCable::User.find_or_create_by(host_user_id: 1, tenant: tenant)
+melee = falcon.chat_rooms.create(name: 'Melee', owner: falcon, tenant: tenant)
+falco = LarvataCable::User.find_or_create_by(host_user_id: 2, tenant: tenant)
 melee.members << falco
 melee.messages.create(sender: falcon, body: 'FALCON PAWNCH')
 melee.messages.create(sender: falco, body: 'AWAAAAAAAAA')
