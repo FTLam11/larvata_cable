@@ -25,7 +25,7 @@ module LarvataCable
 
       encode(
         {
-          sub: user.host_user_id,
+          sub: user.id,
           aud: user.tenant_id,
           exp: expires_at
         }

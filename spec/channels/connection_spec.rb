@@ -3,13 +3,12 @@ require 'rails_helper'
 RSpec.describe ApplicationCable::Connection, type: :channel do
   context 'with a valid authorization header' do
     it 'successfully connects' do
-      user = instance_double(User, id: 322)
-      token = LarvataCable::JWTWrapper.encode({ sub: user.id })
-      allow(LarvataCable.user_class).to receive(:find).with(user.id).and_return(user)
+      user = create(:user)
+      token = LarvataCable::JWTWrapper.generate_token(user)
 
       connect '/cable', headers: { 'Authorization' => "Bearer #{token}" }
 
-      expect(connection.current_user).to be user
+      expect(connection.current_user).to eq user
     end
   end
 
