@@ -28,5 +28,19 @@ module LarvataCable
         end
       end
     end
+
+    describe 'GET #index' do
+      it 'fetches chat rooms for a given tenant and user' do
+        user = create(:user)
+        chat_room = create(:chat_room, owner: user, tenant: user.tenant)
+        params = { app_id: chat_room.tenant.id, data: { user_id: 1 } }
+        payload = LarvataCable::AuthWrapper.generate_token(params)
+
+        get chat_rooms_path, params: payload, as: :json
+
+        expect(response).to have_http_status(200)
+        expect(body_content['chat_rooms']).to include(JSON.parse(chat_room.to_json))
+      end
+    end
   end
 end
