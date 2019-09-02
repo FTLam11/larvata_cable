@@ -55,6 +55,3 @@ bower.json
 
 # Ignore node_modules
 node_modules/
-
-# Ignore super secret stuff
-config/initializers/00_auth_keys.rb
