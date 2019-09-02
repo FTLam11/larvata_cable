@@ -11,7 +11,7 @@ module LarvataCable
     after_create :add_owner_to_members
 
     def as_json(*)
-      super(only: [:id, :name]).tap do |hash|
+      super(only: [:id, :name, :created_at]).tap do |hash|
         hash[:owner_id] = owner.host_user_id
         hash[:app_id] = tenant_id
       end
