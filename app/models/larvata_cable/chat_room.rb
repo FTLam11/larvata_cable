@@ -14,6 +14,7 @@ module LarvataCable
       super(only: [:id, :name, :created_at]).tap do |hash|
         hash[:owner_id] = owner.host_user_id
         hash[:app_id] = tenant_id
+        hash[:member_ids] = members.pluck(:host_user_id)
       end
     end
 
