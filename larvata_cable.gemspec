@@ -19,7 +19,6 @@ Gem::Specification.new do |spec|
   spec.add_dependency "rails", "~> 5.1.4"
   spec.add_dependency "jwt"
   spec.add_dependency "sidekiq"
-  spec.add_dependency "devise"
   spec.add_dependency "rbnacl"
 
   spec.add_development_dependency "puma"
