@@ -27,18 +27,5 @@ module LarvataCable
         end
       end
     end
-
-    describe 'DELETE #destroy' do
-      xit 'revokes the JWT' do
-        user = create(:user, account: 'Falcon')
-        headers = { Authorization: "Bearer #{user.auth_token}" }
-
-        delete logout_path, headers: headers
-
-        expect(response).to(have_http_status(204))
-        # TODO add expectation about invalid auth_token
-        # need to implement token expiration
-      end
-    end
   end
 end
