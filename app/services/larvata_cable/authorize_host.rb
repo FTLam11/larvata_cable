@@ -1,6 +1,6 @@
 module LarvataCable
   class AuthorizeHost
-    attr_reader :success, :error, :tenant, :user
+    attr_reader :success, :error, :tenant, :user, :data
 
     def initialize(params)
       begin
@@ -8,6 +8,7 @@ module LarvataCable
         @tenant = LarvataCable::Tenant.find(json['app_id'])
         @user = LarvataCable::User.find_or_create_by!(host_user_id: json.dig(*%w(data user_id)),
                                                      tenant: tenant)
+        @data = json['data']
         @success = true
       rescue StandardError => e
         # TODO setup logger/external error notification
