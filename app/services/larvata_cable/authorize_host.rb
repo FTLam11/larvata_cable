@@ -6,8 +6,8 @@ module LarvataCable
       begin
         json = LarvataCable::AuthWrapper.parse_token(params)
         tenant = LarvataCable::Tenant.find(json['app_id'])
-        user = LarvataCable::User.find_or_create_by(host_user_id: json.dig(*%w(data user_id)),
-                                                    tenant: tenant)
+        user = LarvataCable::User.find_or_create_by!(host_user_id: json.dig(*%w(data user_id)),
+                                                     tenant: tenant)
         @token = LarvataCable::JWTWrapper.generate_token(user)
         @success = true
       rescue StandardError => e
