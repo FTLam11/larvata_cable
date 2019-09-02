@@ -7,8 +7,7 @@ module LarvataCable
         if user = request.env['warden']&.user || (block.call if block_given?)
           user
         elsif decoded_token
-          # TODO how is a token revoked?
-          LarvataCable.user_class.find(decoded_token['sub'])
+          LarvataCable::User.find(decoded_token['sub'])
         else
           nil
         end

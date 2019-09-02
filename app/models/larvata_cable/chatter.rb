@@ -1,8 +1,11 @@
 module LarvataCable
   class Chatter < ApplicationRecord
-    belongs_to :user, class_name: LarvataCable.user_class.to_s
+    belongs_to :user, foreign_key: 'larvata_cable_user_id'
     belongs_to :chat_room, foreign_key: 'larvata_cable_chat_room_id'
 
-    validates :user_id, uniqueness: { scope: :larvata_cable_chat_room_id, message: 'should not have duplicate members' }
+    validates :larvata_cable_user_id,
+      uniqueness: { scope: :larvata_cable_chat_room_id,
+                    message: 'should not have duplicate members',
+                    case_sensitive: false }
   end
 end

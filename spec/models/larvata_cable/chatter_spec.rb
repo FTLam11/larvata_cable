@@ -8,12 +8,10 @@ module LarvataCable
     end
 
     describe 'validations' do
-      let(:owner) { create(:user) }
-      let(:chat_room) { create(:chat_room, owner: owner) }
-      subject { create(:chatter, user: owner, chat_room: chat_room) }
+      subject { create(:chatter) }
 
       it do
-        should validate_uniqueness_of(:user_id)
+        should validate_uniqueness_of(:larvata_cable_user_id)
           .scoped_to(:larvata_cable_chat_room_id)
           .with_message("should not have duplicate members")
       end

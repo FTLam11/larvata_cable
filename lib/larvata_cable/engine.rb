@@ -1,15 +1,10 @@
 require 'factory_bot_rails' if Rails.env.test?
 require 'sidekiq'
-require 'devise'
 require 'rbnacl'
 
 module LarvataCable
   class Engine < ::Rails::Engine
     isolate_namespace LarvataCable
-
-    config.to_prepare do
-      LarvataCable.user_class.include(LarvataCable::UserDecorator)
-    end
 
     config.generators do |g|
       g.test_framework :rspec

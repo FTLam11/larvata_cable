@@ -146,10 +146,10 @@ ActionCable](https://guides.rubyonrails.org/action_cable_overview.html#configura
 
 ```javascript
 {
-  iss: APPLICATION ID,
-  sub: USER ID,
+  app_id: APPLICATION ID,
   data: {
-    name: USER NAME
+    user_id: USER ID
+    user_name: USER NAME
   }
 }
 ```
@@ -202,6 +202,26 @@ ActionCable](https://guides.rubyonrails.org/action_cable_overview.html#configura
 2. Broadcasting updates
 3. Live comments section
 4. Online/offline user status
+
+## Multitenant data modeling
+
+Without persisting user data, database constraints are useless and
+ActiveRecord associations cannot be used without hacks. Different host
+applications may also have different modeling needs.
+
+Given database constraints and ActiveRecord associations cannot be
+compromised and a need to satisfy potentially vastly different modeling
+needs, a potential solution is to only persist:
+
+1. `user_id`: Host application user ID
+2. `application_id`: Host application application ID
+3. `data`: JSON type column containing arbitrary data sourced from host
+   application
+
+Must assume that LarvataCable does nothing with the host application
+supplied `data`. The reasoning is this data cannot be relied upon to be
+the source of truth, since the data originates from the host
+application. Jury is still out for this field.
 
 ## License
 The gem is available as open source under the terms of the [MIT License](https://opensource.org/licenses/MIT).
