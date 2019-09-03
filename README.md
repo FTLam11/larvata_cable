@@ -149,7 +149,6 @@ ActionCable](https://guides.rubyonrails.org/action_cable_overview.html#configura
   app_id: APPLICATION ID,
   data: {
     user_id: USER ID
-    user_name: USER NAME
   }
 }
 ```
@@ -222,6 +221,11 @@ Must assume that LarvataCable does nothing with the host application
 supplied `data`. The reasoning is this data cannot be relied upon to be
 the source of truth, since the data originates from the host
 application. Jury is still out for this field.
+
+## API Documentation
+
+Latest and greatest API docs can be found
+[here](https://documenter.getpostman.com/view/8670571/SVfTPTAt?version=latest).
 
 ## License
 The gem is available as open source under the terms of the [MIT License](https://opensource.org/licenses/MIT).
