@@ -13,9 +13,9 @@
 ActiveRecord::Schema.define(version: 2019_08_01_092527) do
 
   create_table "larvata_cable_chat_rooms", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci", force: :cascade do |t|
-    t.string "name"
-    t.bigint "owner_id", null: false
     t.string "tenant_id", null: false
+    t.bigint "owner_id", null: false
+    t.string "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["owner_id"], name: "index_larvata_cable_chat_rooms_on_owner_id"
@@ -51,12 +51,11 @@ ActiveRecord::Schema.define(version: 2019_08_01_092527) do
   end
 
   create_table "larvata_cable_users", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci", force: :cascade do |t|
-    t.bigint "host_user_id", null: false
     t.string "tenant_id", null: false
+    t.bigint "host_user_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["host_user_id"], name: "index_larvata_cable_users_on_host_user_id"
-    t.index ["tenant_id"], name: "index_larvata_cable_users_on_tenant_id"
+    t.index ["tenant_id", "host_user_id"], name: "index_larvata_cable_users_on_tenant_id_and_host_user_id", unique: true
   end
 
   add_foreign_key "larvata_cable_chat_rooms", "larvata_cable_tenants", column: "tenant_id", primary_key: "application_id"
