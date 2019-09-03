@@ -126,8 +126,8 @@ not receive messages from it.
 
 ## Authentication Strategies
 
-1) Check if user has been authenticated through Warden
-2) Via `account` and `password` if given
+1) ~~Check if user has been authenticated through Warden~~
+2) ~~Via `account` and `password` if given~~
 3) Via Authorization header
 
 ## Configuration
