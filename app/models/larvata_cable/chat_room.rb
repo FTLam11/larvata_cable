@@ -8,7 +8,7 @@ module LarvataCable
 
     # TODO is name required? examine use cases
 
-    after_create :add_owner_to_members
+    after_commit :add_owner_to_members
 
     def as_json(*)
       super(only: [:id, :name, :created_at]).tap do |hash|
@@ -21,7 +21,7 @@ module LarvataCable
     private
 
     def add_owner_to_members
-      members << owner
+      members << owner unless members.include? owner
     end
   end
 end
