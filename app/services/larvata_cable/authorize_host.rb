@@ -7,7 +7,7 @@ module LarvataCable
         json = LarvataCable::AuthWrapper.parse_token(params)
         @tenant = LarvataCable::Tenant.find(json['app_id'])
         @user = LarvataCable::User.find_or_create_by!(host_user_id: json.dig(*%w(data user_id)),
-                                                     tenant: tenant)
+                                                      tenant: tenant)
         @data = json['data']
         @success = true
       rescue StandardError => e

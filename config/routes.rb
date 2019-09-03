@@ -3,6 +3,7 @@ LarvataCable::Engine.routes.draw do
 
   resources :chat_rooms, only: [:create, :index] do
     resources :messages, only: [:index]
+    resources :members, controller: :chatters, only: [:create, :index, :destroy]
   end
 
   # TODO enable authentication for production sidekiq dashboard
