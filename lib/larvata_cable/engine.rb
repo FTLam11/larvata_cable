@@ -1,6 +1,7 @@
 require 'factory_bot_rails' if Rails.env.test?
 require 'sidekiq'
 require 'rbnacl'
+require 'anycable-rails'
 
 module LarvataCable
   class Engine < ::Rails::Engine
