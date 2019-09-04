@@ -194,6 +194,11 @@ ActionCable](https://guides.rubyonrails.org/action_cable_overview.html#configura
    connection to Websocket connection.
 9. Client and LarvataCable use ActionCable API to send/receive messages.
 
+## Signing the payload
+
+* [ios](https://github.com/christophhagen/Curve25519)
+* [android](https://github.com/signalapp/curve25519-java)
+
 ## Potential API Workflows
 
 1. Not possible to use session cookie because of different origin (for
