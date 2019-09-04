@@ -6,7 +6,8 @@ module LarvataCable
       auth_service = LarvataCable::AuthorizeHost.new(params)
 
       if auth_service.success
-        messages = LarvataCable::ChatRoom.find(auth_service.data['chat_room_id']).messages.limit(10)
+        # TODO include pagination
+        messages = LarvataCable::ChatRoom.find(params[:chat_room_id]).messages.limit(10)
 
         render json: { messages: messages }
       else
