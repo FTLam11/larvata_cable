@@ -7,5 +7,11 @@ module LarvataCable
       uniqueness: { scope: :larvata_cable_chat_room_id,
                     message: 'should not have duplicate members',
                     case_sensitive: false }
+
+    def as_json(*)
+      super(only: [:created_at, :updated_at]).tap do |hash|
+        hash[:user_id] = larvata_cable_user_id
+      end
+    end
   end
 end

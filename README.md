@@ -22,7 +22,21 @@ Or install it yourself as:
 $ gem install larvata_cable
 ```
 
-## How to initiate a websocket connection with brute force
+## Working with ActionCable
+
+### How to initiate a websocket connection with brute force
+
+**You should definitely use a client-side ActionCable or websocket library.**
+
+#### IOS
+
+* [Swift-ActionCableClient](https://github.com/danielrhodes/Swift-ActionCableClient)
+* [Starscream](https://github.com/daltoniam/Starscream)
+
+#### Android
+
+* [actioncable-client-java](https://github.com/hosopy/actioncable-client-java)
+* [actioncable-client-kotlin](https://github.com/hosopy/actioncable-client-kotlin)
 
 The GET request must contain the following headers:
 
@@ -61,7 +75,7 @@ Content-Length: 22
 cache-control: no-cache
 ```
 
-## Subscribing to a channel
+### Subscribing to a channel
 
 Once the websocket connection is established, the client can subscribe
 to a channel by sending a json message in the following format:
@@ -78,7 +92,7 @@ to a channel by sending a json message in the following format:
 The client will automatically stream messages from the subscribed
 channel.
 
-## Sending messages
+### Sending messages
 
 Once a channel subscription is created, the client can send messages to
 the channel. The example below shows the general message format. The
@@ -107,7 +121,7 @@ server and client.
 }
 ```
 
-## Unsubscribing from a channel
+### Unsubscribing from a channel
 
 If the client wishes to disconnect from a channel, a message in the
 following format should be sent to the server:
@@ -126,9 +140,9 @@ not receive messages from it.
 
 ## Authentication Strategies
 
-1) Check if user has been authenticated through Warden
-2) Via `account` and `password` if given
-3) Via Authorization header
+1) ~~Check if user has been authenticated through Warden~~
+2) ~~Via `account` and `password` if given~~
+3) Via `Authorization` header
 
 ## Configuration
 
@@ -149,14 +163,13 @@ ActionCable](https://guides.rubyonrails.org/action_cable_overview.html#configura
   app_id: APPLICATION ID,
   data: {
     user_id: USER ID
-    user_name: USER NAME
   }
 }
 ```
 
-5. Host application sends POST request with authorization token in
-   body payload to LarvataCable server (/cable).
-6. LarvataCable decrypts token using private key, verifies application
+5. Host application attaches the authentication token to a `POST`
+   request to the LarvataCable `/auth` endpoint.
+6. LarvataCable decrypts token using its private key, verifies application
    ID, and responds with authorization JWT with the following format:
 
 ```javascript
@@ -176,7 +189,7 @@ ActionCable](https://guides.rubyonrails.org/action_cable_overview.html#configura
 ```
 
 7. Client attaches authorization JWT to `Authorization` header of GET
-   request to LarvataCable ActionCable endpoint.
+   request to LarvataCable ActionCable `/cable` endpoint.
 8. LarvataCable server verifies Authorization JWT and upgrades HTTP
    connection to Websocket connection.
 9. Client and LarvataCable use ActionCable API to send/receive messages.
@@ -195,6 +208,11 @@ ActionCable](https://guides.rubyonrails.org/action_cable_overview.html#configura
 
 * API/websocket authorization is via server proxying
 * Publish/subscribe is client direct to LarvataCable server
+
+## API Documentation
+
+Latest and greatest API docs can be found
+[here](https://documenter.getpostman.com/view/8670571/SVfTPTAt?version=latest).
 
 ## Use cases
 
