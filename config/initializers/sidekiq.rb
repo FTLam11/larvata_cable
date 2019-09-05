@@ -12,10 +12,10 @@ end
 
 Sidekiq.configure_server do |config|
   config.redis = { url: ENV["REDIS_URL"] }
-  config.log_formatter = Sidekiq::Logger::Formatters::ExtraPretty.new
-  config.logger.formatter = config.log_formatter
 end
 
 Sidekiq.configure_client do |config|
   config.redis = { url: ENV["REDIS_URL"] }
 end
+
+Sidekiq.logger.formatter = Sidekiq::Logger::Formatters::ExtraPretty.new
