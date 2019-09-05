@@ -1,5 +1,6 @@
 require 'factory_bot_rails' if Rails.env.test?
 require 'sidekiq'
+require 'sidekiq/cli'
 require 'rbnacl'
 
 module LarvataCable
