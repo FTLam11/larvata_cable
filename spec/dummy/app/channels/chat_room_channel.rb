@@ -6,7 +6,7 @@ class ChatRoomChannel < ApplicationCable::Channel
     # AppearanceChannel
     # AnnouncementChannel
     if @chat_room = find_chat_room
-      stream_for @chat_room
+      stream_for "chat_room_#{@chat_room.id}"
     else
       reject
     end
