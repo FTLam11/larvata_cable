@@ -1,7 +1,7 @@
 module Sidekiq
   class Logger < ::Logger
     module Formatters
-      class ExtraPretty < Base
+      class ExtraPretty < Pretty
         def call(severity, time, program_name, message)
           "#{time.utc.iso8601(3)} pid=#{::Process.pid} tid=#{tid}#{format_context} [#{severity}] #{message}\n"
         end
