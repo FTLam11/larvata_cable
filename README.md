@@ -111,11 +111,11 @@ server and client.
 {
   command: "message",
   identifier: {
-    channel: "ChatRoomChannel"
+    channel: "ChatRoomChannel",
+    chat_room_id: 322
   },
   data: {
-    action: "send_message",
-    chat_room_id: 322,
+    action: "chat",
     body: "Yo what up homie"
   }
 }

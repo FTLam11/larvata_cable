@@ -11,8 +11,7 @@ module LarvataCable
         @data = json['data']
         @success = true
       rescue StandardError => e
-        # TODO setup logger/external error notification
-        Rails.logger.error(e.message)
+        Rails.logger.tagged(self.class.name) { Rails.logger.error("#{e.message} #{json}") }
         @error = e.message
       end
     end
