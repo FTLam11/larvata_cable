@@ -6,7 +6,7 @@ module LarvataCable
     has_many :members, through: :chatters, source: 'user'
     has_many :messages, -> { order(:created_at) }, foreign_key: 'larvata_cable_chat_room_id'
 
-    # TODO is name required? examine use cases
+    # TODO: is name required? examine use cases
 
     after_commit :add_owner_to_members
 
@@ -21,7 +21,7 @@ module LarvataCable
     private
 
     def add_owner_to_members
-      members << owner unless members.include? owner
+      members << owner unless members.include?(owner)
     end
   end
 end
