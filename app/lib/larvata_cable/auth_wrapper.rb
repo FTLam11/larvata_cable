@@ -18,11 +18,11 @@ module LarvataCable
     private_constant :FN
 
     def generate_token(data)
-      { token: GENERATE_TOKEN.(data.to_json) }
+      { token: GENERATE_TOKEN.call(data.to_json) }
     end
 
     def parse_token(params)
-      JSON.parse(PARSE_TOKEN.(params[:token]))
+      JSON.parse(PARSE_TOKEN.call(params[:token]))
     end
   end
 end

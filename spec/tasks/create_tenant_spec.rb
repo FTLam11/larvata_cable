@@ -19,9 +19,8 @@ RSpec.describe 'rake tenants:create' do
 
       duplicate_tenant = build(:tenant, name: 'LarvataApp')
       duplicate_tenant.save
-      errors = duplicate_tenant.errors.full_messages.join(', ')
 
-      expect { task.execute(args) }.to output(errors).to_stdout
+      expect { task.execute(args) }.to output(/Failed to create tenant:/).to_stdout_from_any_process
     end
   end
 
@@ -29,9 +28,8 @@ RSpec.describe 'rake tenants:create' do
     it 'displays validation errors' do
       invalid_tenant = build(:tenant, name: nil)
       invalid_tenant.save
-      errors = invalid_tenant.errors.full_messages.join(', ')
 
-      expect { task.execute }.to output(errors).to_stdout
+      expect { task.execute }.to output(/Failed to create tenant:/).to_stdout_from_any_process
     end
   end
 end

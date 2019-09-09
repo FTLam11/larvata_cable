@@ -22,7 +22,7 @@ RSpec.describe ChatRoomChannel, type: :channel do
         subscribe(chat_room_id: 322)
 
         expect(subscription).to be_confirmed
-        expect(subscription).to have_stream_for(chat_room)
+        expect(subscription).to have_stream_for("chat_room:chat_room_#{chat_room.id}")
       end
     end
   end
@@ -49,7 +49,7 @@ RSpec.describe ChatRoomChannel, type: :channel do
       subscribe(chat_room_id: chat_room.id)
 
       Sidekiq::Testing.inline! do
-        expect { perform_enqueued_jobs { perform(:chat, data) } }.to have_broadcasted_to("chat_room_#{chat_room.id}")
+        expect { perform_enqueued_jobs { perform(:chat, data) } }.to have_broadcasted_to("chat_room:chat_room_#{chat_room.id}")
           .from_channel(ChatRoomChannel).with(data.merge(sender: falcon.host_user_id))
       end
     end

@@ -4,35 +4,33 @@ module LarvataCable
 
     included do
       def find_verified_user(&block)
-        if user = request.env['warden']&.user || (block.call if block_given?)
+        if (user = request.env['warden']&.user || (block.call if block_given?))
           user
         elsif decoded_token
           LarvataCable::User.find(decoded_token['sub'])
-        else
-          nil
         end
       end
 
       private
 
       def decoded_token
-        @token ||= LarvataCable::JWTWrapper.decode(request_header_token)
+        LarvataCable::JWTWrapper.decode(request_header_token)
       rescue JWT::DecodeError => e
         lawger('JWT Decode Error', "#{e.message}: #{request_header_token.inspect}")
         false
       end
 
       def request_header_token
-        @raw_token = if request.headers['Authorization']&.match(/Bearer /)
-                       request.headers['Authorization'].split[1]
-                     end
+        if request.headers['Authorization']&.match(/Bearer /)
+          request.headers['Authorization'].split[1]
+        end
       end
 
       def lawger(tag, message)
         if logger.respond_to?(:add_tags)
-          logger.add_tags tag, message
+          logger.add_tags(tag, message)
         else
-          logger.error "[#{tag}] #{message}"
+          logger.error("[#{tag}] #{message}")
         end
       end
     end
