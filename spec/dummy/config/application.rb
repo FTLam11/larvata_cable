@@ -4,7 +4,8 @@ require 'rails/all'
 
 Bundler.require(*Rails.groups)
 Dotenv::Railtie.load
-require "larvata_cable"
+require 'larvata_cable'
+require 'anycable-rails'
 
 module Dummy
   class Application < Rails::Application
