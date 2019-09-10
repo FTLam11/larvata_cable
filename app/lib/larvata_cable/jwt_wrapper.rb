@@ -4,18 +4,12 @@ module LarvataCable
   module JWTWrapper
     extend self
 
-    SIGNING_KEY = Rails.application.secrets[:jwt_signing_key] || Rails.application.credentials[:jwt_signing_key]
-
-    unless SIGNING_KEY.present?
-      raise 'Please set jwt_signing_key in config/secrets.yml. It is required for signing JWT. Refer to https://jwt.io/introduction.'
-    end
-
     def encode(payload)
-      JWT.encode(payload, SIGNING_KEY, 'HS256')
+      JWT.encode(payload, LarvataCable.signing_key, 'HS256')
     end
 
     def decode(token)
-      JWT.decode(token, SIGNING_KEY, true, exp_leeway: LarvataCable.leeway_claim, algorithm: 'HS256').first
+      JWT.decode(token, LarvataCable.signing_key, true, exp_leeway: LarvataCable.leeway_claim, algorithm: 'HS256').first
     end
 
     def generate_token(user)
