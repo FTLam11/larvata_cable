@@ -10,7 +10,7 @@ module LarvataCable
           payload = LarvataCable::AuthWrapper.generate_token(params)
 
           post auth_path, params: payload, as: :json
-          token = LarvataCable::JWTWrapper.generate_token(LarvataCable::User.last)
+          token = LarvataCable::JwtWrapper.generate_token(LarvataCable::User.last)
 
           expect(response).to have_http_status(200)
           expect(body_content).to eq('token' => token)

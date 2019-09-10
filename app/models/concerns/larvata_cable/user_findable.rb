@@ -14,7 +14,7 @@ module LarvataCable
       private
 
       def decoded_token
-        LarvataCable::JWTWrapper.decode(request_header_token)
+        LarvataCable::JwtWrapper.decode(request_header_token)
       rescue JWT::DecodeError => e
         lawger('JWT Decode Error', "#{e.message}: #{request_header_token.inspect}")
         false
