@@ -4,7 +4,7 @@ module LarvataCable
   module JWTWrapper
     extend self
 
-    SIGNING_KEY = Rails.application.secrets[:jwt_signing_key]
+    SIGNING_KEY = Rails.application.secrets[:jwt_signing_key] || Rails.application.credentials[:jwt_signing_key]
 
     unless SIGNING_KEY.present?
       raise 'Please set jwt_signing_key in config/secrets.yml. It is required for signing JWT. Refer to https://jwt.io/introduction.'
