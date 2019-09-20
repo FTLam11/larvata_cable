@@ -14,3 +14,13 @@ namespace :tenants do
     end
   end
 end
+
+namespace :config do
+  desc 'Generate new base64 encoded public/private key pair'
+  task keypair: :environment do
+    keypair = RbNaCl::PrivateKey.generate
+
+    puts public_key: LarvataCable::AuthWrapper::BASE64_ENCODE.call(keypair.public_key.to_s),
+      private_key: LarvataCable::AuthWrapper::BASE64_ENCODE.call(keypair.to_s)
+  end
+end

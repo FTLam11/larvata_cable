@@ -14,6 +14,7 @@ module LarvataCable
     GENERATE_TOKEN = FN[:encrypt] >> FN[:base64_encode] >> FN[:utf8_encode]
     PARSE_TOKEN = FN[:ascii_encode] >> FN[:base64_decode] >> FN[:decrypt]
     READ_KEY = FN[:ascii_encode] >> FN[:base64_decode]
+    BASE64_ENCODE = FN[:base64_encode]
 
     private_constant :FN
 
