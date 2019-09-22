@@ -11,12 +11,12 @@ module LarvataCable
       decrypt: ->(data) { LarvataCable.auth_box.decrypt(data) },
     }.freeze
 
-    GENERATE_TOKEN = FN[:encrypt] >> FN[:base64_encode] >> FN[:utf8_encode]
-    PARSE_TOKEN = FN[:ascii_encode] >> FN[:base64_decode] >> FN[:decrypt]
-    READ_KEY = FN[:ascii_encode] >> FN[:base64_decode]
     BASE64_ENCODE = FN[:base64_encode]
+    GENERATE_TOKEN = FN[:encrypt] >> BASE64_ENCODE >> FN[:utf8_encode]
+    READ_KEY = FN[:ascii_encode] >> FN[:base64_decode]
+    PARSE_TOKEN = READ_KEY >> FN[:decrypt]
 
-    private_constant :FN
+    private_constant :FN, :BASE64_ENCODE, :GENERATE_TOKEN, :READ_KEY, :PARSE_TOKEN
 
     def generate_token(data)
       { token: GENERATE_TOKEN.call(data.to_json) }
@@ -24,6 +24,14 @@ module LarvataCable
 
     def parse_token(params)
       JSON.parse(PARSE_TOKEN.call(params[:token]))
+    end
+
+    def read_key(env_key)
+      READ_KEY.call(env_key)
+    end
+
+    def base64_encode(data)
+      BASE64_ENCODE.call(data)
     end
   end
 end

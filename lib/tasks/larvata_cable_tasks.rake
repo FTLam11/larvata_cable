@@ -20,7 +20,7 @@ namespace :config do
   task keypair: :environment do
     keypair = RbNaCl::PrivateKey.generate
 
-    puts public_key: LarvataCable::AuthWrapper::BASE64_ENCODE.call(keypair.public_key.to_s),
-      private_key: LarvataCable::AuthWrapper::BASE64_ENCODE.call(keypair.to_s)
+    puts public_key: LarvataCable::AuthWrapper.base64_encode(keypair.public_key.to_s),
+      private_key: LarvataCable::AuthWrapper.base64_encode(keypair.to_s)
   end
 end
