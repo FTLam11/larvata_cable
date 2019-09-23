@@ -6,7 +6,7 @@ module LarvataCable
       if auth_service.success
         render json: { token: LarvataCable::JwtWrapper.generate_token(auth_service.user) }
       else
-        render json: { error: auth_service.error }, status: 400 and return
+        render json: { error: auth_service.error }, status: 400
       end
     end
   end

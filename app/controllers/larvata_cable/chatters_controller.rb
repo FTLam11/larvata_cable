@@ -10,10 +10,10 @@ module LarvataCable
         if chatter.save
           render json: {}, status: 201
         else
-          render json: { error: chatter.errors.full_messages }, status: 400 and return
+          render json: { error: chatter.errors.full_messages }, status: 400
         end
       else
-        render json: { error: auth_service.error }, status: 400 and return
+        render json: { error: auth_service.error }, status: 400
       end
     end
 
@@ -24,7 +24,7 @@ module LarvataCable
         chat_room = LarvataCable::ChatRoom.find(params[:chat_room_id])
         render json: { members: chat_room.chatters }
       else
-        render json: { error: auth_service.error }, status: 400 and return
+        render json: { error: auth_service.error }, status: 400
       end
     end
 
@@ -38,10 +38,10 @@ module LarvataCable
         if member.destroy
           render json: {}, status: 204
         else
-          render json: { error: member.errors.full_messages }, status: 400 and return
+          render json: { error: member.errors.full_messages }, status: 400
         end
       else
-        render json: { error: auth_service.error }, status: 400 and return
+        render json: { error: auth_service.error }, status: 400
       end
     end
   end

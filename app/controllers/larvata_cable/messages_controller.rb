@@ -11,7 +11,7 @@ module LarvataCable
 
         render json: { messages: messages }
       else
-        render json: { error: auth_service.error }, status: 400 and return
+        render json: { error: auth_service.error }, status: 400
       end
     end
   end

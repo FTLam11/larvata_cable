@@ -13,10 +13,10 @@ module LarvataCable
         if chat_room.save
           render json: chat_room, status: 201
         else
-          render json: { error: chat_room.errors.full_messages }, status: 400 and return
+          render json: { error: chat_room.errors.full_messages }, status: 400
         end
       else
-        render json: { error: auth_service.error }, status: 400 and return
+        render json: { error: auth_service.error }, status: 400
       end
     end
 
@@ -26,7 +26,7 @@ module LarvataCable
       if auth_service.success
         render json: { chat_rooms: auth_service.user.chat_rooms }
       else
-        render json: { error: auth_service.error }, status: 400 and return
+        render json: { error: auth_service.error }, status: 400
       end
     end
   end
