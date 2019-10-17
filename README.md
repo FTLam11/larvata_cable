@@ -22,7 +22,76 @@ Or install it yourself as:
 $ gem install larvata_cable
 ```
 
+## Configuration
+
+The host application is responsible for [configuring
+ActionCable](https://guides.rubyonrails.org/action_cable_overview.html#configuration).
+
 ## Working with ActionCable
+
+### Authentication Strategies
+
+Requests should use the `Authorization` header for all authenticated
+requests.
+
+### Example Chat Workflow
+
+1. Client authenticates with host application using credentials.
+2. With valid user credentials, host application responds with session
+   cookie.
+3. Client accesses a chat resource on host application.
+4. Host application uses LarvataCable public key to encrypt a JSON
+   token string payload containing:
+
+```javascript
+{
+  app_id: APPLICATION ID,
+  data: {
+    user_id: USER ID
+  }
+}
+```
+
+5. Host application attaches the authentication token to a `POST`
+   request to the LarvataCable `/auth` endpoint.
+6. LarvataCable decrypts token using its private key, verifies application
+   ID, and responds with authorization JWT with the following format:
+
+```javascript
+// HEADER
+{
+  alg: "HS256",
+  typ: "JWT"
+}
+
+// PAYLOAD
+{
+  sub: USER ID,
+  exp: EXPIRATION TIME
+}
+
+// SIGNATURE
+```
+
+7. Client attaches authorization JWT to `Authorization` header of GET
+   request to LarvataCable ActionCable `/cable` endpoint.
+8. LarvataCable server verifies Authorization JWT and upgrades HTTP
+   connection to Websocket connection.
+9. Client and LarvataCable use ActionCable API to send/receive messages.
+
+## API Documentation
+
+Latest and greatest API docs can be found
+[here](https://documenter.getpostman.com/view/8670571/SVfTPTAt?version=latest).
+
+## Use cases
+
+1. Chat rooms/direct messaging
+2. Broadcasting updates
+3. Live comments section
+4. Online/offline user status
+
+## Appendix
 
 ### How to initiate a websocket connection with brute force
 
@@ -138,67 +207,6 @@ following format should be sent to the server:
 The client in this case unsubscribes from the `ChatRoomChannel` and will
 not receive messages from it.
 
-## Authentication Strategies
-
-1) ~~Check if user has been authenticated through Warden~~
-2) ~~Via `account` and `password` if given~~
-3) Via `Authorization` header
-
-## Configuration
-
-The host application is responsible for [configuring
-ActionCable](https://guides.rubyonrails.org/action_cable_overview.html#configuration).
-
-## Chat Workflow
-
-1. Client authenticates with host application using credentials.
-2. With valid user credentials, host application responds with session
-   cookie.
-3. Client accesses a chat resource on host application.
-4. Host application uses LarvataCable public key to encrypt a JSON
-   token string payload containing:
-
-```javascript
-{
-  app_id: APPLICATION ID,
-  data: {
-    user_id: USER ID
-  }
-}
-```
-
-5. Host application attaches the authentication token to a `POST`
-   request to the LarvataCable `/auth` endpoint.
-6. LarvataCable decrypts token using its private key, verifies application
-   ID, and responds with authorization JWT with the following format:
-
-```javascript
-// HEADER
-{
-  alg: "HS256",
-  typ: "JWT"
-}
-
-// PAYLOAD
-{
-  sub: USER ID,
-  exp: EXPIRATION TIME
-}
-
-// SIGNATURE
-```
-
-7. Client attaches authorization JWT to `Authorization` header of GET
-   request to LarvataCable ActionCable `/cable` endpoint.
-8. LarvataCable server verifies Authorization JWT and upgrades HTTP
-   connection to Websocket connection.
-9. Client and LarvataCable use ActionCable API to send/receive messages.
-
-## Signing the payload
-
-* [ios](https://github.com/christophhagen/Curve25519)
-* [android](https://github.com/signalapp/curve25519-java)
-
 ## Potential API Workflows
 
 1. Not possible to use session cookie because of different origin (for
@@ -213,18 +221,6 @@ ActionCable](https://guides.rubyonrails.org/action_cable_overview.html#configura
 
 * API/websocket authorization is via server proxying
 * Publish/subscribe is client direct to LarvataCable server
-
-## API Documentation
-
-Latest and greatest API docs can be found
-[here](https://documenter.getpostman.com/view/8670571/SVfTPTAt?version=latest).
-
-## Use cases
-
-1. Chat rooms/direct messaging
-2. Broadcasting updates
-3. Live comments section
-4. Online/offline user status
 
 ## Multitenant data modeling
 
@@ -244,7 +240,7 @@ needs, a potential solution is to only persist:
 Must assume that LarvataCable does nothing with the host application
 supplied `data`. The reasoning is this data cannot be relied upon to be
 the source of truth, since the data originates from the host
-application. Jury is still out for this field.
+application.
 
 ## License
 The gem is available as open source under the terms of the [MIT License](https://opensource.org/licenses/MIT).
