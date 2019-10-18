@@ -31,8 +31,13 @@ ActionCable](https://guides.rubyonrails.org/action_cable_overview.html#configura
 
 ### Authentication Strategies
 
-Requests should use the `Authorization` header for all authenticated
-requests.
+Requests should use the `Authorization` header for establishing
+websocket connections. All other API requests should include a signed
+token in the request body under the key `token`. See below links for
+more information about payload signing.
+
+* [ios](https://github.com/christophhagen/Curve25519)
+* [android](https://github.com/signalapp/curve25519-java)
 
 ### Example Chat Workflow
 
