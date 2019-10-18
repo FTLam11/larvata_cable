@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    larvata_cable (0.2.1)
+    larvata_cable (0.2.2)
       anycable-rails
       jwt
       rails (~> 6.0.0)
@@ -100,10 +100,10 @@ GEM
     ffi (1.11.1)
     globalid (0.4.2)
       activesupport (>= 4.2.0)
-    google-protobuf (3.9.1)
+    google-protobuf (3.9.1-universal-darwin)
     googleapis-common-protos-types (1.0.4)
       google-protobuf (~> 3.0)
-    grpc (1.23.0)
+    grpc (1.23.0-universal-darwin)
       google-protobuf (~> 3.8)
       googleapis-common-protos-types (~> 1.0)
     i18n (1.6.0)

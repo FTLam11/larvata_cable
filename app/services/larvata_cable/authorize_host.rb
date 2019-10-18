@@ -11,7 +11,7 @@ module LarvataCable
       @success = true
     rescue StandardError => e
       Rails.logger.tagged(self.class.name) { Rails.logger.error("#{e.message} #{json}") }
-      @error = e.message
+      @error = 'Unauthorized request'
     end
   end
 end
