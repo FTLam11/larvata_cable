@@ -78,8 +78,9 @@ more information about payload signing.
 // SIGNATURE
 ```
 
-7. Client attaches authorization JWT to `Authorization` header of GET
-   request to LarvataCable ActionCable `/cable` endpoint.
+7. Client receives authorization JWT from host application and makes GET
+   request to LarvataCable ActionCable `/cable` endpoint. The request
+   must attach the JWT to the `Authorization` header.
 8. LarvataCable server verifies Authorization JWT and upgrades HTTP
    connection to Websocket connection.
 9. Client and LarvataCable use ActionCable API to send/receive messages.
