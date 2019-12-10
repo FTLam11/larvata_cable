@@ -248,5 +248,25 @@ supplied `data`. The reasoning is this data cannot be relied upon to be
 the source of truth, since the data originates from the host
 application.
 
+## TODO
+
+- Messages
+- NoSQL
+- Chat room status
+- Media
+- Registration
+
+* Open API endpoints for registering a host application
+* Libraries for registering with chat application
+* Look into NoSQL database (Mongo)
+* Reply directly to a message
+* Read at/read by count
+* Edit message
+* Delete message (soft)
+* Chat room status (member count, notifications for memberships, new
+  messages)
+* Log User-Agent for each message (web desktop notifications)
+* Media upload
+
 ## License
 The gem is available as open source under the terms of the [MIT License](https://opensource.org/licenses/MIT).
