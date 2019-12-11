@@ -3,11 +3,11 @@ module LarvataCable
     def index
       # TODO: verify user is a member of requested chat room?
 
-      auth_service = LarvataCable::AuthorizeHost.new(params)
+      auth_service = AuthorizeHost.new(params)
 
       if auth_service.success
         # TODO: include pagination
-        messages = LarvataCable::ChatRoom.find(params[:chat_room_id]).messages.limit(10)
+        messages = ChatRoom.find(params[:chat_room_id]).messages.limit(10)
 
         render json: { messages: messages }
       else

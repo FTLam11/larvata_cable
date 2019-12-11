@@ -8,7 +8,7 @@ module LarvataCable
         chat_room = create(:chat_room, owner: user, tenant: user.tenant)
         message = create(:message, chat_room: chat_room, sender: user, body: 'FALCON PAWNCH')
         params = { app_id: chat_room.tenant.id, data: { user_id: 1 } }
-        payload = LarvataCable::AuthWrapper.generate_token(params)
+        payload = AuthWrapper.generate_token(params)
 
         get chat_room_messages_path(chat_room), params: payload, as: :json
 

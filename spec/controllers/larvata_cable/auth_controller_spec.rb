@@ -7,10 +7,10 @@ module LarvataCable
         it 'responds with a signed JWT' do
           tenant = create(:tenant)
           params = { app_id: tenant.id, data: { user_id: 1 } }
-          payload = LarvataCable::AuthWrapper.generate_token(params)
+          payload = AuthWrapper.generate_token(params)
 
           post auth_path, params: payload, as: :json
-          token = LarvataCable::JwtWrapper.generate_token(LarvataCable::User.last)
+          token = JwtWrapper.generate_token(User.last)
 
           expect(response).to have_http_status(200)
           expect(body_content).to eq('token' => token)

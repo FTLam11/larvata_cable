@@ -7,14 +7,14 @@ module LarvataCable
         if (user = request.env['warden']&.user || (block.call if block_given?))
           user
         elsif decoded_token
-          LarvataCable::User.find(decoded_token['sub'])
+          User.find(decoded_token['sub'])
         end
       end
 
       private
 
       def decoded_token
-        LarvataCable::JwtWrapper.decode(request_header_token)
+        JwtWrapper.decode(request_header_token)
       rescue JWT::DecodeError => e
         lawger('JWT Decode Error', "#{e.message}: #{request_header_token.inspect}")
         false

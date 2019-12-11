@@ -1,10 +1,10 @@
 module LarvataCable
   class ChatRoomsController < ApplicationController
     def create
-      auth_service = LarvataCable::AuthorizeHost.new(params)
+      auth_service = AuthorizeHost.new(params)
 
       if auth_service.success
-        chat_room = LarvataCable::ChatRoom.new(
+        chat_room = ChatRoom.new(
           owner: auth_service.user,
           tenant: auth_service.tenant,
           name: auth_service.data['chat_room_name']
@@ -21,7 +21,7 @@ module LarvataCable
     end
 
     def index
-      auth_service = LarvataCable::AuthorizeHost.new(params)
+      auth_service = AuthorizeHost.new(params)
 
       if auth_service.success
         render json: { chat_rooms: auth_service.user.chat_rooms }
