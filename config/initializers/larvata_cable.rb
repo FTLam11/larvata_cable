@@ -12,7 +12,7 @@ LarvataCable.auth_box = RbNaCl::SimpleBox.from_keypair(
 )
 
 LarvataCable.signing_key = Rails.application.secrets[:jwt_signing_key] ||
-  Rails.application.credentials[:jwt_signing_key]
+  Rails.application.credentials[:jwt_signing_key] || ENV['JWT_SIGNING_KEY']
 
 unless LarvataCable.signing_key.present?
   raise 'Please set jwt_signing_key in config/secrets.yml or config/credentials.yml.enc. Refer to https://jwt.io/introduction.'
