@@ -22,8 +22,8 @@ module LarvataCable
       { token: GENERATE_TOKEN.call(data.to_json) }
     end
 
-    def parse_token(params)
-      JSON.parse(PARSE_TOKEN.call(params[:token]))
+    def parse_token(token)
+      JSON.parse(PARSE_TOKEN.call(token))
     end
 
     def read_key(env_key)
