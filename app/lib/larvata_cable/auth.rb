@@ -4,11 +4,11 @@ module LarvataCable
 
     FN = {
       encrypt: ->(data) { LarvataCable.auth_box.encrypt(data) },
-      base64_encode: ->(data) { Base64.encode64(data) },
+      decrypt: ->(data) { LarvataCable.auth_box.decrypt(data) },
       utf8_encode: ->(data) { data.encode('UTF-8', 'ASCII-8BIT') },
       ascii_encode: ->(data) { data.encode('ASCII-8BIT', 'UTF-8') },
+      base64_encode: ->(data) { Base64.encode64(data) },
       base64_decode: ->(data) { Base64.decode64(data) },
-      decrypt: ->(data) { LarvataCable.auth_box.decrypt(data) },
     }.freeze
 
     BASE64_ENCODE = FN[:base64_encode]
