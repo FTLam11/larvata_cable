@@ -7,7 +7,7 @@ module LarvataCable
         it 'responds with a signed JWT' do
           tenant = create(:tenant)
           params = { app_id: tenant.id, data: { user_id: 1 } }
-          payload = AuthWrapper.generate_token(params)
+          payload = Auth.generate_token(params)
 
           post auth_path, params: payload, as: :json
           token = Access.generate_token(User.last)

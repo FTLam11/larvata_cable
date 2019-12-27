@@ -3,7 +3,7 @@ module LarvataCable
     attr_reader :success, :error, :tenant, :user, :data
 
     def initialize(params)
-      json = AuthWrapper.parse_token(params)
+      json = Auth.parse_token(params)
       @tenant = Tenant.find(json['app_id'])
       @user = User.find_or_create_by!(host_user_id: json.dig('data', 'user_id'),
                                                     tenant: tenant)

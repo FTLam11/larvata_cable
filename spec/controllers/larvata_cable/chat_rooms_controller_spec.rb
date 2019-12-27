@@ -7,7 +7,7 @@ module LarvataCable
         it 'creates a chat room for the tenant' do
           tenant = create(:tenant)
           params = { app_id: tenant.id, data: { user_id: 1, chat_room_name: 'MELEE # 1' } }
-          payload = AuthWrapper.generate_token(params)
+          payload = Auth.generate_token(params)
 
           post chat_rooms_path, params: payload, as: :json
 
@@ -34,7 +34,7 @@ module LarvataCable
         user = create(:user)
         chat_room = create(:chat_room, owner: user, tenant: user.tenant)
         params = { app_id: chat_room.tenant.id, data: { user_id: 1 } }
-        payload = AuthWrapper.generate_token(params)
+        payload = Auth.generate_token(params)
 
         get chat_rooms_path, params: payload, as: :json
 

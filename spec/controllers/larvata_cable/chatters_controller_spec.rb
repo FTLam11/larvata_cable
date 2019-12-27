@@ -7,7 +7,7 @@ module LarvataCable
         user = create(:user)
         chat_room = create(:chat_room)
         params = { app_id: user.tenant.id, data: { user_id: 1 } }
-        payload = AuthWrapper.generate_token(params)
+        payload = Auth.generate_token(params)
 
         post chat_room_members_path(chat_room), params: payload, as: :json
 
@@ -20,7 +20,7 @@ module LarvataCable
         user = create(:user)
         chat_room = create(:chat_room, owner: user, tenant: user.tenant)
         params = { app_id: chat_room.tenant.id, data: { user_id: 1 } }
-        payload = AuthWrapper.generate_token(params)
+        payload = Auth.generate_token(params)
 
         get chat_room_members_path(chat_room), params: payload, as: :json
 
@@ -34,7 +34,7 @@ module LarvataCable
         user = create(:user)
         chat_room = create(:chat_room, owner: user, tenant: user.tenant)
         params = { app_id: chat_room.tenant.id, data: { user_id: 1 } }
-        payload = AuthWrapper.generate_token(params)
+        payload = Auth.generate_token(params)
 
         delete chat_room_member_path(chat_room, params[:data][:user_id]), params: payload, as: :json
 

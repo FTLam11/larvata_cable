@@ -1,5 +1,5 @@
 module LarvataCable
-  module AuthWrapper
+  module Auth
     extend self
 
     FN = {
