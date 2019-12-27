@@ -1,7 +1,7 @@
 require 'jwt'
 
 module LarvataCable
-  module JwtWrapper
+  module Access
     extend self
 
     def encode(payload)

@@ -10,7 +10,7 @@ module LarvataCable
           payload = AuthWrapper.generate_token(params)
 
           post auth_path, params: payload, as: :json
-          token = JwtWrapper.generate_token(User.last)
+          token = Access.generate_token(User.last)
 
           expect(response).to have_http_status(200)
           expect(body_content).to eq('token' => token)

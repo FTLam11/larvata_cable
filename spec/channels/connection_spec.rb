@@ -4,7 +4,7 @@ RSpec.describe ApplicationCable::Connection, type: :channel do
   context 'with a valid authorization header' do
     it 'successfully connects' do
       user = create(:user)
-      token = LarvataCable::JwtWrapper.generate_token(user)
+      token = LarvataCable::Access.generate_token(user)
 
       connect '/cable', headers: { 'Authorization' => "Bearer #{token}" }
 

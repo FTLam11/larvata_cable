@@ -14,7 +14,7 @@ module LarvataCable
       private
 
       def decoded_token
-        JwtWrapper.decode(request_header_token)
+        Access.decode(request_header_token)
       rescue JWT::DecodeError => e
         lawger('JWT Decode Error', "#{e.message}: #{request_header_token.inspect}")
         false
