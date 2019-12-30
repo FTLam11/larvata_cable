@@ -5,6 +5,16 @@ module LarvataCable
 
     validates_presence_of :body
 
+    def self.for_room(chat_room_id, **options)
+      page = (options[:page] - 1).abs || 0
+      per = options[:per].abs || 10
+
+      where(larvata_cable_chat_room_id: chat_room_id)
+        .order(created_at: :desc)
+        .offset(page * per)
+        .limit(per)
+    end
+
     def as_json(*)
       super(only: [:id, :body, :created_at]).tap do |hash|
         hash[:sender_id] = sender.host_user_id
