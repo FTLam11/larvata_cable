@@ -18,7 +18,10 @@ module LarvataCable
     private
 
     def message_params
-      params.permit(:page, :per)
+      @params ||= params.permit(:page, :per).tap do |data|
+        data[:page] = data[:page].nil? ? 0 : (data[:page].to_i - 1).abs
+        data[:per] = data[:per].nil? ? 10 : data[:per].to_i.abs
+      end
     end
   end
 end

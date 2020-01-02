@@ -23,9 +23,10 @@ module LarvataCable
           20.times { |i| create(:message, chat_room: chat_room, sender: user, body: (i + 1).to_s) }
           params = { app_id: chat_room.tenant.id, data: { user_id: 1 } }
           options = { page: 2, per: 10 }
+          processed_options = { page: 1, per: 10 }
           payload = Auth.generate_token(params).merge(options)
 
-          messages = Message.for_room(chat_room.id, options)
+          messages = Message.for_room(chat_room.id, processed_options)
           get chat_room_messages_path(chat_room), params: payload, as: :json
 
           expect(response).to have_http_status(200)

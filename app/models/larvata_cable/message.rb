@@ -6,8 +6,8 @@ module LarvataCable
     validates_presence_of :body
 
     def self.for_room(chat_room_id, **options)
-      page = (options[:page] - 1).abs || 0
-      per = options[:per].abs || 10
+      page = options[:page]
+      per = options[:per]
 
       where(larvata_cable_chat_room_id: chat_room_id)
         .order(created_at: :desc)

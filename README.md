@@ -29,7 +29,7 @@ ActionCable](https://guides.rubyonrails.org/action_cable_overview.html#configura
 
 ## Working with ActionCable
 
-### Authentication Strategies
+### Authorization Strategies
 
 Requests should use the `Authorization` header for establishing
 websocket connections. All other API requests should include a signed
