@@ -215,16 +215,6 @@ not receive messages from it.
 
 ## Potential API Workflows
 
-1. Not possible to use session cookie because of different origin (for
-   web clients). Mobile clients should be OK?
-2. Use an opaque token: Might not be too bad since will have to query
-   for a given user's chats and messages. What is the significance of
-   device ID? Using the chat workflow, a permanent opaque token can be
-   granted instead of a JWT.
-3. JWT: Eww blacklisting and refresh tokens
-4. Host application server proxies API calls to LarvataCable, sends
-   application ID and params. (WINNER)
-
 * API/websocket authorization is via server proxying
 * Publish/subscribe is client direct to LarvataCable server
 
@@ -247,26 +237,6 @@ Must assume that LarvataCable does nothing with the host application
 supplied `data`. The reasoning is this data cannot be relied upon to be
 the source of truth, since the data originates from the host
 application.
-
-## TODO
-
-- Messages
-- NoSQL
-- Chat room status
-- Media
-- Registration
-
-* Open API endpoints for registering a host application
-* Libraries for registering with chat application
-* Look into NoSQL database (Mongo)
-* Reply directly to a message
-* Read at/read by count
-* Edit message
-* Delete message (soft)
-* Chat room status (member count, notifications for memberships, new
-  messages)
-* Log User-Agent for each message (web desktop notifications)
-* Media upload
 
 ## License
 The gem is available as open source under the terms of the [MIT License](https://opensource.org/licenses/MIT).

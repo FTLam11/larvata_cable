@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    larvata_cable (0.2.5)
+    larvata_cable (0.2.6)
       anycable-rails
       jwt
       rails (~> 6.0.0)
